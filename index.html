@@ -15,6 +15,13 @@
   <meta property="og:url" content="https://ganesh2001-11.github.io/portfolio/" />
   <link rel="canonical" href="https://ganesh2001-11.github.io/portfolio/" />
 
+  <!-- Trailing Slash Normalizer for GitHub Pages -->
+  <script>
+    if (window.location.hostname.endsWith('github.io') && window.location.pathname.endsWith('/portfolio')) {
+      window.location.replace(window.location.origin + '/portfolio/' + window.location.search + window.location.hash);
+    }
+  </script>
+
   <!-- JSON-LD Structured Data for Search Engines -->
   <script type="application/ld+json">
   {
@@ -713,12 +720,12 @@
             </p>
 
             <div class="flex flex-wrap items-center gap-3">
-              <a href="./resume/Resume.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm">
+              <a href="./resume/Resume.pdf" onclick="handleViewResume(event)" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm cursor-pointer">
                 <i data-lucide="external-link" class="w-4 h-4"></i>
                 <span>View Resume</span>
               </a>
 
-              <a href="./resume/Resume.pdf" download="Ganesh_R_Resume.pdf" class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700">
+              <a href="./resume/Resume.pdf" onclick="handleDownloadResume(event)" download="Ganesh_R_Resume.pdf" class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700 cursor-pointer">
                 <i data-lucide="file-down" class="w-4 h-4 text-slate-500"></i>
                 <span>Download Resume</span>
               </a>
@@ -922,6 +929,30 @@
           }, 2000);
         }
       });
+    }
+
+    function getResumePath() {
+      // Determine the correct absolute path on GitHub Pages or local
+      const segments = window.location.pathname.split('/').filter(Boolean);
+      if (window.location.hostname.endsWith('github.io') && segments.length > 0) {
+        return '/' + segments[0] + '/resume/Resume.pdf';
+      }
+      return './resume/Resume.pdf';
+    }
+
+    function handleViewResume(e) {
+      if (e) e.preventDefault();
+      window.open(getResumePath(), '_blank');
+    }
+
+    function handleDownloadResume(e) {
+      if (e) e.preventDefault();
+      const a = document.createElement('a');
+      a.href = getResumePath();
+      a.download = 'Ganesh_R_Resume.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     }
 
     function handleContactSubmit(e) {
