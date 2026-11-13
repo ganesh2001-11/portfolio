@@ -61,7 +61,7 @@ export const PROFILE: ProfileData = {
   role: "Data Engineer",
   email: "ganeshraman110@gmail.com",
   phone: "9361889414",
-  location: "Bangalore, India",
+  location: "Chennai, India",
   linkedin: "https://linkedin.com/in/ganesh-r-a32a01393",
   githubUsername: "ganesh2001-11",
   githubUrl: "https://github.com/ganesh2001-11",
